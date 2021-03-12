@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.mooc.ppjoke.model.BottomBar;
 import com.mooc.ppjoke.model.Destination;
 
 import java.io.BufferedReader;
@@ -13,8 +14,9 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 public class AppConfig {
+    //sDestConfig和sBottomBar都是应用在首页，所以定义为static,这样不会被销毁
     private static HashMap<String, Destination> sDestConfig;
-//    private static BottomBar
+    private static BottomBar sBottomBar;
     public static HashMap<String, Destination> getDestConfig(){
         //当sDestConfig为空的时候，我们就来实现他
         if (sDestConfig==null){
@@ -25,6 +27,16 @@ public class AppConfig {
         }
         return sDestConfig;
     }
+
+    public static BottomBar getsBottomBar(){
+        //若sBottomBar对象为空，我们才解析他
+        if (sBottomBar==null){
+            String content=parseFile("main_tabs_config.json");
+            sBottomBar=JSON.parseObject(content,BottomBar.class);
+        }
+        return sBottomBar;
+    }
+
 
     private static String parseFile(String fileName){
 

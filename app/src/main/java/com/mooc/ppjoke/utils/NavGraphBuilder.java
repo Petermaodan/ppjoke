@@ -2,6 +2,7 @@ package com.mooc.ppjoke.utils;
 
 import android.content.ComponentName;
 
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.ActivityNavigator;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
@@ -9,19 +10,29 @@ import androidx.navigation.NavGraphNavigator;
 import androidx.navigation.NavigatorProvider;
 import androidx.navigation.fragment.FragmentNavigator;
 
+import com.mooc.ppjoke.FixFragmentNavigator;
 import com.mooc.ppjoke.model.Destination;
 
 import java.util.HashMap;
 
 public class NavGraphBuilder {
     //需要和NavController相关联，所以该方法的参数就为此
-    public static void build(NavController controller){
+    //需要外部传入activity和containId
+    public static void build(NavController controller,FragmentActivity activity,int containerId){
         //通过响应的Navigate创建相应的页面节点
         NavigatorProvider provider = controller.getNavigatorProvider();
 
         //分别获取FragmentNavigator和ActivityNavigator对象
-        FragmentNavigator fragmentNavigator = provider.getNavigator(FragmentNavigator.class);
+//        FragmentNavigator fragmentNavigator = provider.getNavigator(FragmentNavigator.class);
+        //使用自建的导航器FixFragmentNavigator
+        FixFragmentNavigator fragmentNavigator=new FixFragmentNavigator(activity,activity.getSupportFragmentManager(),containerId);
+        //创建完成之后需要添加到NavigatorProvider的hashMap中去
+        provider.addNavigator(fragmentNavigator);
+
+
         ActivityNavigator activityNavigator=provider.getNavigator(ActivityNavigator.class);
+
+
 
         //后面的数据要添加到改NavGraph中
         NavGraph navGraph=new NavGraph(new NavGraphNavigator(provider));
