@@ -5,6 +5,9 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mooc.libnetwork.ApiResponse;
+import com.mooc.libnetwork.GetRequest;
+import com.mooc.libnetwork.JsonCallback;
 import com.mooc.ppjoke.utils.NavGraphBuilder;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,8 @@ import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -40,6 +45,18 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         NavGraphBuilder.build(navController,this,fragment.getId());
 
         navView.setOnNavigationItemSelectedListener(this);
+
+        //测试代码->测试泛型擦除
+        GetRequest<JSONObject> request = new GetRequest<>("www.mooc.com");
+        request.execute();
+
+        request.execute(new JsonCallback<JSONObject>() {
+            @Override
+            public void onSuccess(ApiResponse<JSONObject> response) {
+                super.onSuccess(response);
+            }
+        });
+
     }
 
     @Override

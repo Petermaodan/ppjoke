@@ -1,21 +1,20 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.mooc.ppjoke"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
-
 
     buildTypes {
         release {
@@ -27,32 +26,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    dataBinding{
-        enabled=true
-    }
 }
 
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.navigation:navigation-fragment:2.2.2'
-    implementation 'androidx.navigation:navigation-ui:2.2.2'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation 'com.alibaba:fastjson:1.2.62'
-    implementation project(':libnavannotation')
-    annotationProcessor project(":libnavcompiler")
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.squareup.okhttp3:okhttp:4.2.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
 
-    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
+    annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 
-    implementation project(":libnetwork")
-
+    implementation 'com.alibaba:fastjson:1.2.59'
 }
