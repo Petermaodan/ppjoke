@@ -1,4 +1,4 @@
-package com.mooc.ppjoke.ui.view;
+package com.mooc.ppjoke.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

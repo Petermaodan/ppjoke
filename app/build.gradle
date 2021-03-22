@@ -54,5 +54,30 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.0'
 
     implementation project(":libnetwork")
+    implementation project(":libcommon")
+
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'jp.wasabeef:glide-transformations:4.0.1'
+
+    //刷新分页组件
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
+
+//exo播放器
+    api 'com.google.android.exoplayer:exoplayer-core:2.10.4'
+    api 'com.google.android.exoplayer:exoplayer-dash:2.10.4'
+    api 'com.google.android.exoplayer:exoplayer-ui:2.10.4'
+
+//viewmodel and livedata
+    api 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+
+//或者指明仅仅使用 livedata、viewmodel
+    api "androidx.lifecycle:lifecycle-viewmodel:2.1.0"
+    api 'androidx.lifecycle:lifecycle-livedata:2.1.0'
+
+//paging分页组件
+    api 'androidx.paging:paging-runtime:2.1.0'
+
 
 }

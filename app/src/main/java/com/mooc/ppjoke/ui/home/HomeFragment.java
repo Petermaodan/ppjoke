@@ -11,11 +11,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.PagedListAdapter;
 
 import com.mooc.libnavannotation.FragmentDestination;
 import com.mooc.ppjoke.R;
+import com.mooc.ppjoke.model.Feed;
+import com.mooc.ppjoke.ui.AbsListFragment;
+
 @FragmentDestination(pageUrl = "main/tabs/home", asStarter = true)
-public class HomeFragment extends Fragment {
+public class HomeFragment extends AbsListFragment<Feed> {
 
     private HomeViewModel homeViewModel;
 
@@ -32,5 +36,10 @@ public class HomeFragment extends Fragment {
             }
         });
         return root;
+    }
+
+    @Override
+    public PagedListAdapter getAdapter() {
+        return null;
     }
 }
