@@ -12,7 +12,9 @@
             name="lifeCycleOwner"
             type="androidx.lifecycle.LifecycleOwner" />
 
-        <import type="com.mooc.ppjoke.model.Feed"></import>
+        <import type="com.mooc.ppjoke.model.Feed">
+
+        </import>
 
     </data>
 
