@@ -11,35 +11,41 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.paging.ItemKeyedDataSource;
 import androidx.paging.PagedListAdapter;
 
 import com.mooc.libnavannotation.FragmentDestination;
 import com.mooc.ppjoke.R;
 import com.mooc.ppjoke.model.Feed;
 import com.mooc.ppjoke.ui.AbsListFragment;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 @FragmentDestination(pageUrl = "main/tabs/home", asStarter = true)
-public class HomeFragment extends AbsListFragment<Feed> {
+public class HomeFragment extends AbsListFragment<Feed,HomeViewModel> {
 
-    private HomeViewModel homeViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+
+    @Override
+    protected void afterCreateView() {
+        mViewModel.getCacheLiveData().obseve
+
     }
 
     @Override
     public PagedListAdapter getAdapter() {
-        return null;
+        String feedType=getArguments()==null?"all":getArguments().getString("feedType");
+        return new FeedAdapter(getContext(),feedType);
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        //上拉分页
+        Feed feed = adapter.getCurrentList().get(adapter.getItemCount() - 1);
+        mViewModel.loadAfter(feed.id,new ItemKeyedDataSource)
+    }
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+
     }
 }

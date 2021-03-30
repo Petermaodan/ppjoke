@@ -78,4 +78,11 @@ public class CacheManager {
         }
         return new byte[0];
     }
+
+    public static <T> void delete(String key,T body){
+        Cache cache=new Cache();
+        cache.key=key;
+        cache.data=toByteArray(body);
+        CacheDatabase.get().getCache().delete(cache);
+    }
 }

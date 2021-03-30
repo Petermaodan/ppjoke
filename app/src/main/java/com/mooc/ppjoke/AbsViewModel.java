@@ -22,11 +22,25 @@ public abstract class AbsViewModel<T> extends ViewModel {
 //                 .setPrefetchDistance()
                  .build();
 
+
+         //获取一个LiveData对象
          pageData=new LivePagedListBuilder(factory,config)
                  .setInitialLoadKey(0)
-//                 .setFetchExecutor()
+//                 .setFetchExecutor()异步执行任务，paging框架会内置
                  .setBoundaryCallback(callback)
                  .build();
+    }
+
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public LiveData<PagedList<T>> getPageData() {
+        return pageData;
+    }
+
+    public MutableLiveData<Boolean> getBoundaryPageData() {
+        return boundaryPageData;
     }
 
     //PagedList数据被加载 情况的边界回调callback

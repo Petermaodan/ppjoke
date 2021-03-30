@@ -8,10 +8,16 @@
             name="comment"
             type="com.mooc.ppjoke.model.Comment" />
 
+        <variable
+            name="lifeCycleOwner"
+            type="androidx.lifecycle.LifecycleOwner" />
+
         <import type="android.text.TextUtils"></import>
         <import type="android.view.View"></import>
 
         <import type="com.mooc.ppjoke.utils.StringConvert"></import>
+
+        <import type="com.mooc.ppjoke.ui.InteractionPresenter"></import>
 
     </data>
 
@@ -78,6 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/sp_12"
+                    android:text="@{comment.ugc.likeCount>0?StringConvert.converFeedUgc(comment.ugc.likeCount):null}"
                     android:textColor="@{comment.ugc.hasLiked?@color/color_theme:@color/color_3d3}"
                     tools:text="1000"></TextView>
 
@@ -86,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:padding="2dp"
                     android:layout_marginLeft="@dimen/dp_4"
+                    android:onClick="@{()->InteractionPresenter.toggleCommentLike(lifeCycleOwner,comment)}"
                     android:src="@{comment.ugc.hasLiked?@drawable/icon_cell_liked:@drawable/icon_cell_like}"
                     tools:src="@drawable/icon_cell_liked"></ImageView>
             </LinearLayout>

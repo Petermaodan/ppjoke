@@ -54,4 +54,11 @@ public class Comment extends BaseObservable implements Serializable {
                 && (author != null && author.equals(newComment.author))
                 && (ugc != null && ugc.equals(newComment.ugc));
     }
+
+    public Ugc getUgc() {
+        if (ugc==null){
+            ugc=new Ugc();
+        }
+        return ugc;
+    }
 }

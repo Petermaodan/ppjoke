@@ -3,6 +3,7 @@ package com.mooc.ppjoke.model;
 import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.Bindable;
 
 import java.io.Serializable;
 
@@ -66,5 +67,13 @@ public class Feed implements Serializable {
                 && (author != null && author.equals(newFeed.author))
                 && (topComment != null && topComment.equals(newFeed.topComment))
                 && (ugc != null && ugc.equals(newFeed.ugc));
+    }
+
+    @Bindable
+    public Ugc getUgc() {
+        if(ugc==null){
+            ugc=new Ugc();
+        }
+        return ugc;
     }
 }

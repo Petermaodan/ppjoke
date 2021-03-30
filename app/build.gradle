@@ -79,5 +79,8 @@ dependencies {
 //paging分页组件
     api 'androidx.paging:paging-runtime:2.1.0'
 
+    //QQ快捷登录
+    implementation files('libs/open_sdk_r6140_lite.jar')
+
 
 }
