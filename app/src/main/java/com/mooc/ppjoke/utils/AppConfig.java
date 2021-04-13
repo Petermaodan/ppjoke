@@ -7,17 +7,23 @@ import com.alibaba.fastjson.TypeReference;
 import com.mooc.libcommon.AppGlobals;
 import com.mooc.ppjoke.model.BottomBar;
 import com.mooc.ppjoke.model.Destination;
+import com.mooc.ppjoke.model.SofaTab;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class AppConfig {
     //sDestConfig和sBottomBar都是应用在首页，所以定义为static,这样不会被销毁
     private static HashMap<String, Destination> sDestConfig;
     private static BottomBar sBottomBar;
+    private static SofaTab sSofaTab,sFindTabConfig;
+
+
     public static HashMap<String, Destination> getDestConfig(){
         //当sDestConfig为空的时候，我们就来实现他
         if (sDestConfig==null){
@@ -37,6 +43,28 @@ public class AppConfig {
         }
         return sBottomBar;
     }
+
+    //对Sofa布局文件进行解析
+    public static SofaTab getSofaTabConfig(){
+        if (sSofaTab==null){
+            String content=parseFile("sofa_tabs_config.json");
+            sSofaTab=JSON.parseObject(content,SofaTab.class);
+            //进行排序
+            Collections.sort(sSofaTab.tabs, new Comparator<SofaTab.TabsDTO>() {
+                @Override
+                public int compare(SofaTab.TabsDTO o1, SofaTab.TabsDTO o2) {
+                    return o1.index<o2.index?-1:1;
+                }
+            });
+        }
+        return sSofaTab;
+    }
+
+//    public static SofaTab getFindTabConfig(){
+//        if (sFindTabConfig==null){
+//            String content=parseFile("")
+//        }
+//    }
 
 
     private static String parseFile(String fileName){

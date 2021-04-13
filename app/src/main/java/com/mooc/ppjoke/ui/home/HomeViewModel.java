@@ -39,6 +39,10 @@ public class HomeViewModel extends AbsViewModel<Feed> {
         return mDataSource;
     }
 
+    public MutableLiveData<PagedList<Feed>> getCacheLiveData(){
+        return cacheLiveData;
+    }
+
     ItemKeyedDataSource<Integer,Feed> mDataSource=new ItemKeyedDataSource<Integer, Feed>() {
         @Override
         public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Feed> callback) {

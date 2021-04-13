@@ -16,6 +16,7 @@ import androidx.paging.PagedListAdapter;
 
 import com.mooc.libnavannotation.FragmentDestination;
 import com.mooc.ppjoke.R;
+import com.mooc.ppjoke.exoplayer.PageListPlayDetector;
 import com.mooc.ppjoke.model.Feed;
 import com.mooc.ppjoke.ui.AbsListFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -24,6 +25,15 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 public class HomeFragment extends AbsListFragment<Feed,HomeViewModel> {
 
 
+    private PageListPlayDetector playDetector;
+
+    public static HomeFragment newInstance(String feedType) {
+        Bundle args=new Bundle();
+        args.putString("feedType",feedType);
+        HomeFragment fragment=new HomeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected void afterCreateView() {
@@ -31,10 +41,13 @@ public class HomeFragment extends AbsListFragment<Feed,HomeViewModel> {
 
     }
 
+    //将检测列表自动播放逻辑进行更新，复写getAdapter方法。
     @Override
     public PagedListAdapter getAdapter() {
         String feedType=getArguments()==null?"all":getArguments().getString("feedType");
-        return new FeedAdapter(getContext(),feedType);
+        return new FeedAdapter(getContext(),feedType){
+            
+        }
     }
 
     @Override
@@ -47,5 +60,15 @@ public class HomeFragment extends AbsListFragment<Feed,HomeViewModel> {
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
 
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            playDetector.onPause();
+        }else {
+            playDetector.onResume();
+        }
     }
 }

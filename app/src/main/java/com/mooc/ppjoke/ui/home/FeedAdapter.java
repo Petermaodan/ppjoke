@@ -87,7 +87,10 @@ public class FeedAdapter extends PagedListAdapter<Feed,FeedAdapter.ViewHolder> {
                 videoBinding.setFeed(item);
                 videoBinding.listPlayerView.bindData(mCategory,item.width,item.height,item.cover,item.url);
             }
+        }
 
+        public boolean isVideoItem(){
+            return mBinding instanceof LayoutFeedTypeVideoBinding;
         }
     }
 }
