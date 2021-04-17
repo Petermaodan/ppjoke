@@ -5,4 +5,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="login_text">QQ快捷登录</string>
     <string name="feed_comment">评论</string>
+    <string name="feed_detail_hint">友善的皮才是真皮</string>
+    <string name="share">分享</string>
+    <string name="feed_detail_type_image_title">帖子详情页</string>
 </resources>

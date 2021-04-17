@@ -76,4 +76,9 @@ public class Feed implements Serializable {
         }
         return ugc;
     }
+
+    @Bindable
+    public User getAuthor() {
+        return author;
+    }
 }
