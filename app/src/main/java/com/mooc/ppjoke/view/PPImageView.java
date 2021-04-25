@@ -78,7 +78,7 @@ public class PPImageView extends AppCompatImageView {
         bindData(widthPx,heightPx,marginLeft, PixUtils.getScreenWidth(),PixUtils.getScreenHeight(),imageUrl);
     }
 
-    private void bindData(int widthPx, int heightPx, int marginLeft, final int maxWidth, final int maxHeight, String imageUrl) {
+    public void bindData(int widthPx, int heightPx, int marginLeft, final int maxWidth, final int maxHeight, String imageUrl) {
         if (TextUtils.isEmpty(imageUrl)){
             setVisibility(GONE);
             return;

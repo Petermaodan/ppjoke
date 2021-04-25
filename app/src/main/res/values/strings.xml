@@ -8,4 +8,6 @@
     <string name="feed_detail_hint">友善的皮才是真皮</string>
     <string name="share">分享</string>
     <string name="feed_detail_type_image_title">帖子详情页</string>
+    <string name="author">作者</string>
+    <string name="feed_comment_empty">还没有评论，快来抢一楼吧</string>
 </resources>
