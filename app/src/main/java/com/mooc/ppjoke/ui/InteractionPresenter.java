@@ -1,6 +1,7 @@
 package com.mooc.ppjoke.ui;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,10 +10,12 @@ import android.widget.Toast;
 import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mooc.libcommon.AppGlobals;
+import com.mooc.libcommon.extention.LiveDataBus;
 import com.mooc.libnetwork.ApiResponse;
 import com.mooc.libnetwork.ApiService;
 import com.mooc.libnetwork.JsonCallback;
@@ -155,7 +158,9 @@ public class InteractionPresenter {
             public void onChanged(User user) {
                 toggleCommentLikeInternal(comment);
             }
-        }))
+        })){}else {
+            toggleCommentLikeInternal(comment);
+        }
     }
 
     private static void toggleCommentLikeInternal(Comment comment) {
@@ -275,7 +280,42 @@ public class InteractionPresenter {
                         if (response.body!=null){
                             boolean hasFollow=response.body.getBooleanValue("hasLiked");
                             feed.getAuthor().setHasFollow(hasFollow);
-                            LiveDataBus
+                            LiveDataBus.get().with(DATA_FROM_INTERACTION)
+                                    .postValue(feed);
+                        }
+                    }
+
+                    @Override
+                    public void onError(ApiResponse<JSONObject> response) {
+                        showToast(response.message);
+                    }
+                });
+    }
+
+    //删除某个帖子的一个评论
+    public static LiveData<Boolean> deleteFeedComment(Context context,long itemId,long commentId){
+        MutableLiveData<Boolean> liveData=new MutableLiveData<>();
+        new AlertDialog.Builder(context)
+                .setNegativeButton("删除",(dialog,which)->{
+                    dialog.dismiss();
+                    deleteFeedCommentInternal(liveData,itemId,commentId);
+                }).setPositiveButton("取消",(dialog,which)->dialog.dismiss()).setMessage("确定要删除这条评论吗？").create().show();
+        return liveData;
+    }
+
+    private static void deleteFeedCommentInternal(LiveData liveData, long itemId, long commentId) {
+        //调用Api
+        ApiService.get("/comment/deleteComment")
+                .addParam("userId", UserManager.get().getUserId())
+                .addParam("commentId",commentId)
+                .addParam("itemId",itemId)
+                .execute(new JsonCallback<JSONObject>() {
+                    @Override
+                    public void onSuccess(ApiResponse<JSONObject> response) {
+                        if (response.body!=null){
+                            boolean result=response.body.getBooleanValue("result");
+                            ((MutableLiveData)liveData).postValue(result);
+                            showToast("评论删除成功");
                         }
                     }
 

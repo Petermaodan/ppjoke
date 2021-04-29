@@ -3,11 +3,12 @@ package com.mooc.ppjoke.model;
 import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
+import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 import java.io.Serializable;
 
-public class Feed implements Serializable {
+public class Feed extends BaseObservable implements Serializable {
     public static final int TYPE_IMAGE_TEXT=1;
     public static final int TYPE_VIDEO=2;
 

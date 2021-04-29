@@ -9,20 +9,26 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.AsyncDifferConfig;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mooc.libcommon.extention.AbsPagedListAdapter;
+import com.mooc.libcommon.extention.LiveDataBus;
 import com.mooc.ppjoke.BR;
 import com.mooc.ppjoke.databinding.LayoutFeedTypeImageBinding;
 import com.mooc.ppjoke.databinding.LayoutFeedTypeVideoBinding;
 import com.mooc.ppjoke.model.Feed;
+import com.mooc.ppjoke.ui.InteractionPresenter;
+import com.mooc.ppjoke.ui.detail.FeedDetailActivity;
 import com.mooc.ppjoke.view.ListPlayerView;
 
 import java.util.Date;
 
-public class FeedAdapter extends PagedListAdapter<Feed,FeedAdapter.ViewHolder> {
+public class FeedAdapter extends AbsPagedListAdapter<Feed,FeedAdapter.ViewHolder> {
     private final LayoutInflater inflater;
     protected Context mContext;
     protected String mCategory;
@@ -48,7 +54,7 @@ public class FeedAdapter extends PagedListAdapter<Feed,FeedAdapter.ViewHolder> {
     @Override
     public FeedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewDataBinding binding=null;
-        if (viewType==Feed.TYPE_IMAGE){
+        if (viewType==Feed.TYPE_IMAGE_TEXT){
             binding=LayoutFeedTypeImageBinding.inflate(inflater);
         }else {
             binding=LayoutFeedTypeVideoBinding.inflate(inflater);
@@ -57,9 +63,62 @@ public class FeedAdapter extends PagedListAdapter<Feed,FeedAdapter.ViewHolder> {
     }
 
     @Override
+    protected ViewHolder onCreateViewHolder2(ViewGroup parent, int viewType) {
+        return null;
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull FeedAdapter.ViewHolder holder, int position) {
 
     }
+
+    @Override
+    protected void onBindViewHolder2(ViewHolder holder, int position) {
+        final Feed feed=getItem(position);
+
+        holder.bindData(feed);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FeedDetailActivity.startFeedDetailActivity(mContext,feed,mCategory);
+                onStartFeedDetailActivity(feed);
+                if (mFeedObserver==null){
+                    mFeedObserver=new FeedObserver();
+                    //和InteractionPresenter一一对应
+                    LiveDataBus.get()
+                            .with(InteractionPresenter.DATA_FROM_INTERACTION)
+                            .observe((LifecycleOwner) mContext,mFeedObserver);
+                }
+                mFeedObserver.setFeed(feed);
+            }
+        });
+    }
+
+    private void onStartFeedDetailActivity(Feed feed) {
+
+    }
+
+
+    private FeedObserver mFeedObserver;
+
+    private class FeedObserver implements Observer<Feed>{
+        private Feed mFeed;
+
+        @Override
+        public void onChanged(Feed newOne) {
+            if (mFeed.id!=newOne.id)
+                return;
+            mFeed.author=newOne.author;
+            mFeed.ugc=newOne.ugc;
+            mFeed.notifyChange();
+        }
+
+        public void setFeed(Feed feed) {
+            mFeed=feed;
+        }
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -92,5 +151,7 @@ public class FeedAdapter extends PagedListAdapter<Feed,FeedAdapter.ViewHolder> {
         public boolean isVideoItem(){
             return mBinding instanceof LayoutFeedTypeVideoBinding;
         }
+
+
     }
 }

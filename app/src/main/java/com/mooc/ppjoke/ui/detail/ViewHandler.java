@@ -1,5 +1,7 @@
 package com.mooc.ppjoke.ui.detail;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,18 +9,27 @@ import android.view.ViewGroup;
 import androidx.annotation.CallSuper;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.mooc.libcommon.utils.PixUtils;
 import com.mooc.libcommon.view.EmptyView;
+import com.mooc.libnetwork.ApiResponse;
+import com.mooc.libnetwork.ApiService;
+import com.mooc.libnetwork.JsonCallback;
 import com.mooc.ppjoke.R;
 import com.mooc.ppjoke.databinding.LayoutFeedDetailAuthorInfoBinding;
 import com.mooc.ppjoke.databinding.LayoutFeedDetailBottomInateractionBinding;
 import com.mooc.ppjoke.model.Comment;
 import com.mooc.ppjoke.model.Feed;
+import com.mooc.ppjoke.ui.CommentDialog;
+import com.mooc.ppjoke.ui.login.UserManager;
+
 
 public abstract class ViewHandler {
     protected FragmentActivity mActivity;
@@ -69,8 +80,13 @@ public abstract class ViewHandler {
 
     private void showCommentDialog() {
         if (commentDialog==null){
-            commentDialog=
+            commentDialog=CommentDialog.newInstance(mFeed.itemId);
         }
+        commentDialog.setCommentAddListener(comment -> {
+            handleEmpty(true);
+            listAdapter.addAndRefreshList(comment);
+        });
+        commentDialog.show(mActivity.getSupportFragmentManager(),"comment_dialog");
     }
 
 
@@ -92,6 +108,9 @@ public abstract class ViewHandler {
             listAdapter.addHeaderView(mEmptyView);
         }
     }
+
+
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
