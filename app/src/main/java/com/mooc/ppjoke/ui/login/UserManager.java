@@ -11,7 +11,7 @@ import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mooc.libcommon.AppGlobals;
+import com.mooc.libcommon.global.AppGlobals;
 import com.mooc.libnetwork.ApiResponse;
 import com.mooc.libnetwork.ApiService;
 import com.mooc.libnetwork.JsonCallback;

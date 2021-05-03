@@ -14,7 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mooc.libcommon.AppGlobals;
+import com.mooc.libcommon.global.AppGlobals;
 import com.mooc.libcommon.extention.LiveDataBus;
 import com.mooc.libnetwork.ApiResponse;
 import com.mooc.libnetwork.ApiService;

@@ -2,7 +2,7 @@ package com.mooc.libcommon.utils;
 
 import android.util.DisplayMetrics;
 
-import com.mooc.libcommon.AppGlobals;
+import com.mooc.libcommon.global.AppGlobals;
 
 /**
  * 转换高度的单位

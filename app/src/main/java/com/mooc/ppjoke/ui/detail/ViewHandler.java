@@ -113,6 +113,9 @@ public abstract class ViewHandler {
 
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (commentDialog!=null&&commentDialog.isAdded()){
+            commentDialog.onActivityResult(requestCode,resultCode,data);
+        }
     }
 
     public void onPause() {

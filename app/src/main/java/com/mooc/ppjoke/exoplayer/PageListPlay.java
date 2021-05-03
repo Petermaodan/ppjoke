@@ -2,7 +2,6 @@ package com.mooc.ppjoke.exoplayer;
 
 import android.app.Application;
 import android.view.LayoutInflater;
-import android.view.View;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -11,7 +10,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.android.exoplayer2.ui.PlayerView;
-import com.mooc.libcommon.AppGlobals;
+import com.mooc.libcommon.global.AppGlobals;
 import com.mooc.ppjoke.R;
 
 public class PageListPlay {

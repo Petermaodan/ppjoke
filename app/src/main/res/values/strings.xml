@@ -11,4 +11,7 @@
     <string name="author">作者</string>
     <string name="feed_comment_empty">还没有评论，快来抢一楼吧</string>
     <string name="comment_send_text">发送</string>
+    <string name="capture_tips">清楚拍照，长按摄像</string>
+    <string name="preview_ok">完成</string>
+    <string name="file_upload_failed">文上传失败,请重新发布</string>
 </resources>

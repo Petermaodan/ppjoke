@@ -60,6 +60,19 @@
             android:paddingLeft="@dimen/dimen_10"
             android:paddingRight="@dimen/dimen_10">
 
+            <com.mooc.libcommon.view.PPEditTextView
+                android:id="@+id/input_view"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_view"
+                android:gravity="center_vertical"
+                android:hint="@string/comment_hint"
+                android:paddingLeft="@dimen/sp_10"
+                android:textColor="@color/color_333"
+                android:textColorHint="@color/color_999"
+                android:textSize="@dimen/sp_12"></com.mooc.libcommon.view.PPEditTextView>
+
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/comment_video"

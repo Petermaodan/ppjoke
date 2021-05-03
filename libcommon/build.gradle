@@ -33,6 +33,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.paging:paging-runtime:2.1.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -40,4 +41,22 @@ dependencies {
     //navigation导航
     api 'androidx.navigation:navigation-fragment:2.1.0'
     api 'androidx.navigation:navigation-ui:2.1.0'
+
+    //图片加载
+    api 'com.github.bumptech.glide:glide:4.9.0'
+    api 'jp.wasabeef:glide-transformations:4.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    //camera
+    api 'androidx.camera:camera-core:1.0.0-alpha04'
+    api 'androidx.camera:camera-camera2:1.0.0-alpha04'
+    api 'androidx.camera:camera-view:1.0.0-alpha01'
+    api 'androidx.camera:camera-extensions:1.0.0-alpha01'
+
+    //gesture imageview
+    api 'com.github.chrisbanes:PhotoView:2.3.0@aar'
+
+    //aliyun oss
+    api 'com.aliyun.dpa:oss-android-sdk:+'
+
 }
