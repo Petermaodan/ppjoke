@@ -36,10 +36,10 @@ public class ListPlayerView extends FrameLayout implements IPlayTarget,PlayerCon
 
 
 
-    private String mCategory;
-    private int mWidthPx;
-    private int mHeightPx;
-    private String mVideoUrl;
+    protected String mCategory;
+    protected int mWidthPx;
+    protected int mHeightPx;
+    protected String mVideoUrl;
 
     public ListPlayerView(@NonNull Context context) {
         super(context);
@@ -200,5 +200,10 @@ public class ListPlayerView extends FrameLayout implements IPlayTarget,PlayerCon
     @Override
     public void onVisibilityChange(int visibility) {
 
+    }
+
+    public View getPlayController() {
+        PageListPlay listPlay=PageListPlayManager.get(mCategory);
+        return listPlay.controlView;
     }
 }

@@ -21,6 +21,7 @@ import com.mooc.libcommon.extention.LiveDataBus;
 import com.mooc.ppjoke.BR;
 import com.mooc.ppjoke.databinding.LayoutFeedTypeImageBinding;
 import com.mooc.ppjoke.databinding.LayoutFeedTypeVideoBinding;
+import com.mooc.ppjoke.exoplayer.IPlayTarget;
 import com.mooc.ppjoke.model.Feed;
 import com.mooc.ppjoke.ui.InteractionPresenter;
 import com.mooc.ppjoke.ui.detail.FeedDetailActivity;
@@ -49,6 +50,8 @@ public class FeedAdapter extends AbsPagedListAdapter<Feed,FeedAdapter.ViewHolder
         mContext=context;
         mCategory=category;
     }
+
+
 
     @NonNull
     @Override
@@ -95,7 +98,7 @@ public class FeedAdapter extends AbsPagedListAdapter<Feed,FeedAdapter.ViewHolder
         });
     }
 
-    private void onStartFeedDetailActivity(Feed feed) {
+    public void onStartFeedDetailActivity(Feed feed) {
 
     }
 
@@ -153,5 +156,8 @@ public class FeedAdapter extends AbsPagedListAdapter<Feed,FeedAdapter.ViewHolder
         }
 
 
+        public ListPlayerView getListplayerView() {
+            return listPlayerView;
+        }
     }
 }

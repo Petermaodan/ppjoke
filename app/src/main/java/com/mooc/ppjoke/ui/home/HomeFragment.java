@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.paging.ItemKeyedDataSource;
+import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 
 import com.mooc.libnavannotation.FragmentDestination;
@@ -26,6 +27,8 @@ public class HomeFragment extends AbsListFragment<Feed,HomeViewModel> {
 
 
     private PageListPlayDetector playDetector;
+    private String feedType;
+    private boolean shouldPause;
 
     public static HomeFragment newInstance(String feedType) {
         Bundle args=new Bundle();
@@ -44,10 +47,37 @@ public class HomeFragment extends AbsListFragment<Feed,HomeViewModel> {
     //将检测列表自动播放逻辑进行更新，复写getAdapter方法。
     @Override
     public PagedListAdapter getAdapter() {
-        String feedType=getArguments()==null?"all":getArguments().getString("feedType");
+        feedType=getArguments()==null?"all":getArguments().getString("feedType");
         return new FeedAdapter(getContext(),feedType){
-            
-        }
+            @Override
+            public void onStartFeedDetailActivity(Feed feed) {
+                boolean isVideo=feed.itemType==Feed.TYPE_VIDEO;
+                shouldPause=!isVideo;
+            }
+
+            @Override
+            protected void onViewAttachedToWindow2(ViewHolder holder) {
+                if (holder.isVideoItem()){
+                    playDetector.addTarget(holder.getListplayerView());
+                }
+            }
+
+            @Override
+            protected void onViewDetachedFromWindow2(ViewHolder holder) {
+                playDetector.removeTarget(holder.getListplayerView());
+            }
+
+            @Override
+            public void onCurrentListChanged(@Nullable PagedList<Feed> previousList, @Nullable PagedList<Feed> currentList) {
+                //这个方法是在我们每提交一次 pagelist对象到adapter 就会触发一次
+                //每调用一次 adpater.submitlist
+                if (previousList != null && currentList != null) {
+                    if (!currentList.containsAll(previousList)) {
+                        mRecyclerView.scrollToPosition(0);
+                    }
+                }
+            }
+        };
     }
 
     @Override

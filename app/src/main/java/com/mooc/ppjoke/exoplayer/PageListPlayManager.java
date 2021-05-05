@@ -1,7 +1,9 @@
 package com.mooc.ppjoke.exoplayer;
 
 import android.app.Application;
+import android.net.Uri;
 
+import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.upstream.FileDataSourceFactory;
@@ -73,4 +75,7 @@ public class PageListPlayManager {
         }
     }
 
+    public static MediaSource createMediaSource(String url) {
+        return mediaSourceFactory.createMediaSource(Uri.parse(url));
+    }
 }
