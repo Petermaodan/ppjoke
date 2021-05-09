@@ -14,4 +14,16 @@
     <string name="capture_tips">清楚拍照，长按摄像</string>
     <string name="preview_ok">完成</string>
     <string name="file_upload_failed">文上传失败,请重新发布</string>
+    <string name="publish_title">贴子发布</string>
+    <string name="publish_button">发布</string>
+    <string name="publish_edit_hint">加个话题,内容会被更多人看到哈~</string>
+    <string name="publish_add_tag">添加话题</string>
+    <string name="publich_button">贴子发布</string>
+    <string name="publish_exit_message">继续退出编辑的内容将会丢失</string>
+    <string name="publish_exit_action_cancel">取消</string>
+    <string name="publish_exit_action_ok">退出</string>
+    <string name="file_upload_cover_message">封面上传失败</string>
+    <string name="file_upload_oriainal_message">帖子上传失败</string>
+    <string name="feed_publisj_success">贴子发布成功，去沙发页看看吧</string>
+    <string name="feed_publish_ing">正在发布</string>
 </resources>
